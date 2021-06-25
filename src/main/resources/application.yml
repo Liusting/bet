@@ -1,0 +1,43 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/bet?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+mybatis:
+  mapper-locations: classpath:/mapper/**.xml
+  type-aliases-package: com.example.blackoutsimulation.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+mconfig:
+  swagger-ui-open: true
+
+common:
+#    corn: 0 */3 * * * ?
+#     获取最新一期的期数
+    seasonNo: https://auth.rycpaa.com/d/next
+#    获取下单的号数
+    beturl: https://auth.rycpaa.com/d/mmbetlist
+#    获取账户下单历史
+    bethistory: https://auth.rycpaa.com/d/betHistory
+#    自动下单
+    bet: https://auth.rycpaa.com/d/bet
+#    取号数的cookies
+    cookies: zz=s2nzjutv1kuswwwjhvoh5w
+#    自动下注的cookies
+
+    corn: 0/7 * * * * ?
+
+

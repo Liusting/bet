@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.blackoutsimulation.dao.ArticleMapper">
+
+
+    <insert id="insertArticle" parameterType="com.example.blackoutsimulation.entity.ResquestInfo">
+        insert into sp_article values (#{id},#{title},#{article})
+    </insert>
+    <select id="getArticle" resultType="com.example.blackoutsimulation.entity.ResquestInfo">
+        select id,title,article from sp_article where id = #{id}
+    </select>
+</mapper>

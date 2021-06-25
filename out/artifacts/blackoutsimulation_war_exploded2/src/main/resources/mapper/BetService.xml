@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blackoutsimulation.dao.BetTicketsDao">
+
+    <resultMap type="com.example.blackoutsimulation.entity.BetTickets" id="BetTicketsMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="bettime" column="BetTime" jdbcType="VARCHAR"/>
+        <result property="betamount" column="BetAmount" jdbcType="VARCHAR"/>
+        <result property="betodds" column="BetOdds" jdbcType="VARCHAR"/>
+        <result property="betcontent" column="BetContent" jdbcType="VARCHAR"/>
+        <result property="createtime" column="CreateTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="com.example.blackoutsimulation.entity.BetHistory" id="BetHistoryMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="bettime" column="betTime" jdbcType="VARCHAR"/>
+        <result property="betamount" column="betAmount" jdbcType="VARCHAR"/>
+        <result property="betodds" column="betOdds" jdbcType="VARCHAR"/>
+        <result property="betcontent" column="betContent" jdbcType="VARCHAR"/>
+        <result property="winlose" column="winLose" jdbcType="VARCHAR"/>
+        <result property="wincount" column="winCount" jdbcType="VARCHAR"/>
+        <result property="createtime" column="createTime" jdbcType="VARCHAR"/>
+        <result property="number" column="number" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--新增所有列-->
+    <insert id="betTicketsInsert" keyProperty="id" useGeneratedKeys="true">
+        insert into bet.bet_tickets(id, BetTime, BetAmount, BetOdds, BetContent, CreateTime, SeasonNo)
+        values (#{id}, #{bettime}, #{betamount}, #{betodds}, #{betcontent}, #{createtime}, #{seasonno})
+    </insert>
+
+    <!--插入之前将表数据清空-->
+    <delete id="betTicketsDeleteAll">
+        truncate table bet.bet_tickets
+    </delete>
+
+    <select id="getBetTickets" resultType="java.util.Map">
+        select *
+        from bet.bet_tickets;
+    </select>
+
+    <select id="getBetHistory" resultType="java.util.Map">
+        select *
+        from bet.bet_history
+        order BY betTime desc
+        LIMIT 10
+    </select>
+
+    <select id="getSeasonNo" resultType="java.lang.String">
+        select SeasonNo
+        from bet_season_no
+    </select>
+
+
+    <select id="getBetContent" resultType="java.util.Map" parameterType="java.lang.String">
+        select betContent, betOdds, betAmount
+        from bet.bet_history_analyse
+        where SeasonNo = #{seasonNo}
+    </select>
+
+    <select id="getBetHistoryPage" resultType="java.util.Map">
+        select *
+        from bet.bet_history_analyse
+        group by SeasonNo desc
+    </select>
+
+    <select id="getSeasonNoList" resultType="java.util.Map">
+        SELECT *
+        from bet.bet_history_analyse
+        WHERE betTime BETWEEN #{startTime} AND #{endTime}
+        GROUP BY SeasonNo
+    </select>
+
+    <select id="getContentAuto" resultType="java.lang.String">
+        select betContent
+        from bet.bet_auto_bet
+        where SeasonNo &gt;= #{startNo}
+          AND SeasonNo &lt;= #{endNo}
+        ORDER BY SeasonNo
+    </select>
+
+    <select id="cookiesMap" resultType="java.util.Map">
+        select Cookies, CookiesFlag
+        from bet_season_no;
+    </select>
+
+
+    <!--新增所有列-->
+    <insert id="betHistoryInsert" keyProperty="id" useGeneratedKeys="true">
+        insert into bet.bet_history(id, betTime, betAmount, betOdds, betContent, winLose, winCount, createTime, number,
+                                    totalWinLose, SeasonNo)
+        values (#{id}, #{bettime}, #{betamount}, #{betodds}, #{betcontent}, #{winlose}, #{wincount}, #{createtime},
+                #{number}, #{totalwinLose}, #{seasonno})
+    </insert>
+
+    <insert id="betHistoryAnalyseInsert">
+        insert into bet.bet_history_analyse(id, betTime, betAmount, betOdds, betContent, winLose, winCount, createTime,
+                                            number, totalWinLose, SeasonNo)
+        values (#{id}, #{bettime}, #{betamount}, #{betodds}, #{betcontent}, #{winlose}, #{wincount}, #{createtime},
+                #{number}, #{totalwinLose}, #{seasonno})
+
+    </insert>
+
+    <insert id="betPlanInsert">
+        insert into bet.bet_plan (SeasonNo, betContent)
+        values (#{seasonNo}, #{toString})
+    </insert>
+
+    <insert id="betAutoBetInsert">
+        insert into bet.bet_auto_bet (SeasonNo, betContent)
+        values (#{seasonNo}, #{toString})
+    </insert>
+
+    <update id="betSeasonNoInsert">
+        update bet.bet_season_no
+        set SeasonNo = #{seasonNo}
+    </update>
+
+    <update id="updateCookies">
+        update bet.bet_season_no
+        set Cookies=#{Cookies},
+            CookiesFlag=#{CookiesFlag}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="betHistoryDeleteAll">
+        delete
+        from bet.bet_history
+    </delete>
+
+</mapper>

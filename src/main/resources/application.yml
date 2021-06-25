@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8099
   servlet:
     context-path: /
 spring:
@@ -40,4 +40,6 @@ common:
 
     corn: 0/7 * * * * ?
 
+file:
+  qrCode: E:\code\
 

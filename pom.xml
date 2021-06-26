@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>blackoutsimulation</name>
     <description>blackoutsimulation project for Spring Boot</description>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>

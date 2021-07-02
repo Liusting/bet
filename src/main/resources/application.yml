@@ -2,12 +2,12 @@ server:
   port: 8099
   servlet:
     context-path: /
-  ssl:
-    enabled: true
-    key-store: classpath:keystore.jks
-    key-store-type: JKS
-    key-alias: certificatekey
-    key-store-password: 1033202092
+#  ssl:
+#    enabled: true
+#    key-store: classpath:keystore.jks
+#    key-store-type: JKS
+#    key-alias: certificatekey
+#    key-store-password: 1033202092
 spring:
   datasource:
     username: root

@@ -11,7 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>blackoutsimulation</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>blackoutsimulation</name>
+    <name>bet</name>
     <description>blackoutsimulation project for Spring Boot</description>
     <packaging>jar</packaging>
 

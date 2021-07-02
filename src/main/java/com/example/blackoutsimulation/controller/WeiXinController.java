@@ -82,7 +82,7 @@ public class WeiXinController {
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
 
 
-        String pathUrl = "http://106.55.150.54/getSign";
+        String pathUrl = "http://weixin123.gz2vip.idcfengye.com/getSign";
         //将参数排序并拼接字符串
         String str1 = "noncestr=" + noncestr;
         String str2 = "jsapi_ticket=" + jsToken;
@@ -133,8 +133,9 @@ public class WeiXinController {
 
 
 
-    @GetMapping("/test")
+    @GetMapping("/checkToken")
     @CrossOrigin
+    @ApiOperation("接口配置信息，需要正确响应微信发送的Token验证")
     public String test(HttpServletRequest request, HttpServletResponse response){
         try {
 
